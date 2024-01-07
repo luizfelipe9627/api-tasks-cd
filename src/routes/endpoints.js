@@ -97,7 +97,6 @@ module.exports = (app) => {
     // Está atualizando a tarefa com os dados do corpo da requisição.
     taskFound.task = task;
     taskFound.description = description;
-    taskFoun;
     taskFound.priority = priority;
     taskFound.completed = completed;
 
