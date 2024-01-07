@@ -1,0 +1,214 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Taks CD",
+    "version": "1.0.0",
+    "description": "API de gerenciamento de tarefas, desenvolvida para a atividade da Campinho Digital.",
+    "termsOfService": "http://swagger.io/terms/",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "components": {
+    "schemas": {
+      "Tasks": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "task": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          }
+        },
+        "xml": {
+          "name": "Product"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Documentação do Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local (HTTP)"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Tasks",
+      "description": "Rotas de tarefas"
+    }
+  ],
+  "paths": {
+    "/tasks": {
+      "get": {
+        "summary": "Listar tarefas",
+        "tags": ["Tasks"],
+        "description": "Obter lista de tarefas.",
+        "responses": {
+          "400": {
+            "description": "Tarefas(s) não encontrada(s)."
+          },
+          "200": {
+            "description": "Tarefa(s) encontrada(s) com sucesso."
+          }
+        }
+      },
+      "post": {
+        "summary": "Criar tarefa",
+        "tags": ["Tasks"],
+        "description": "Criar uma nova tarefa.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "task": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "priority": {
+                    "type": "string"
+                  },
+                  "completed": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["task", "description", "priority", "completed"],
+                "example": {
+                  "task": "Reunião de projeto",
+                  "description": "Preparar apresentação para a reunião de projeto com a equipe de desenvolvimento.",
+                  "priority": "Alta",
+                  "completed": false
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Tarefa não encontrada."
+          },
+          "201": {
+            "description": "Tarefa criada com sucesso."
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "summary": "Obter tarefa",
+        "tags": ["Tasks"],
+        "description": "Obter uma tarefa específica pelo ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Tarefa não encontrada."
+          },
+          "200": {
+            "description": "Tarefa encontrada com sucesso."
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar tarefa",
+        "tags": ["Tasks"],
+        "description": "Atualizar uma tarefa específica pelo ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "task": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "priority": {
+                    "type": "string"
+                  },
+                  "completed": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["task", "description", "priority", "completed"],
+                "example": {
+                  "task": "Relatório mensal",
+                  "description": "Elaborar o relatório mensal de desempenho e progresso do projeto para apresentação à diretoria.",
+                  "priority": "Média",
+                  "completed": false
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Tarefa não encontrada."
+          },
+          "200": {
+            "description": "Tarefa atualizada com sucesso."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletar tarefa",
+        "tags": ["Tasks"],
+        "description": "Deletar uma tarefa específica pelo ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Tarefa não encontrada."
+          },
+          "200": {
+            "description": "Tarefa deletada com sucesso."
+          }
+        }
+      }
+    }
+  }
+}
